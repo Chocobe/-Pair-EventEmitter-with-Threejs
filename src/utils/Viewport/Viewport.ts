@@ -15,10 +15,11 @@ export default class Viewport {
 
     this.$parent = $parent;
 
-    this.update();
+    this.resize();
+    window.addEventListener('resize', this.resizeBinded);
   }
 
-  update() {
+  resize() {
     const {
       $parent,
     } = this;
@@ -32,5 +33,10 @@ export default class Viewport {
     this.height = height;
     this.aspect = width / height;
     this.pixelRatio = Math.min(window.devicePixelRatio, 2);
+  }
+  resizeBinded = this.resize.bind(this);
+
+  destroy() {
+    window.removeEventListener('resize', this.resizeBinded);
   }
 }

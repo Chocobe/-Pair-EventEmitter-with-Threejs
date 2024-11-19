@@ -44,7 +44,10 @@ export default class Renderer {
       instance,
     } = this;
 
-    instance.render(scene, camera.instance);
+    instance.render(
+      scene.instance, 
+      camera.instance
+    );
   }
 
   get instance() {

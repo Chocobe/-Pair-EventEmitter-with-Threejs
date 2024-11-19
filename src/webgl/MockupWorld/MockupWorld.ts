@@ -38,7 +38,7 @@ export default class MockupWorld {
 
     this._box = box;
 
-    scene.add(floor);
-    scene.add(box);
+    scene.instance.add(floor);
+    scene.instance.add(box);
   }
 }

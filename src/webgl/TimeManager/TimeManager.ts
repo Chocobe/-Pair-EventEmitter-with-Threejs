@@ -9,7 +9,7 @@ export default class TimeManager {
   private _elapsedTime: number;
   private _deltaTime: number;
 
-  private animationFrameId: ReturnType<typeof window.requestAnimationFrame> | null = null;
+  private _animationFrameId: ReturnType<typeof window.requestAnimationFrame> | null = null;
 
   constructor() {
     this._startTime = new Date().getTime();
@@ -29,7 +29,9 @@ export default class TimeManager {
     this._elapsedTime = this._currentTime - this._startTime;
     this._deltaTime = this._currentTime - previousTime;
 
-    this.animationFrameId = window.requestAnimationFrame(this.tick.bind(this));
+    // TODO: `tick` 이벤트 발생 시키기
+
+    this._animationFrameId = window.requestAnimationFrame(this.tick.bind(this));
   }
 
   start() {
@@ -37,8 +39,9 @@ export default class TimeManager {
   }
 
   stop() {
-    if (this.animationFrameId) {
-      window.cancelAnimationFrame(this.animationFrameId);
+    if (this._animationFrameId) {
+      window.cancelAnimationFrame(this._animationFrameId);
+      
     }
   }
 

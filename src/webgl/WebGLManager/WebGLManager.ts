@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 // webgl
 import Viewport from '../../utils/Viewport/Viewport';
+import Scene from '../Scene/Scene';
 import Camera from '../Camera/Camera';
 import Renderer from '../Renderer/Renderer';
 import MockupWorld from '../MockupWorld/MockupWorld';
@@ -17,13 +18,15 @@ export default class WebGLManager {
 
   webglParts!: {
     viewport: Viewport;
+    scene: Scene;
     camera: Camera;
-    scene: THREE.Scene;
     renderer: Renderer;
   };
 
   timeManager!: TimeManager;
   world!: MockupWorld;
+
+  events: any
 
   constructor(params: {
     $parent: HTMLElement;
@@ -55,11 +58,11 @@ export default class WebGLManager {
       $parent,
     });
 
-    // 2. Camera
-    this.webglParts.camera = new Camera();
+    // 2. Scene
+    this.webglParts.scene = new Scene();
 
-    // 3. Scene
-    this.webglParts.scene = new THREE.Scene();
+    // 3. Camera
+    this.webglParts.camera = new Camera();
 
     // 4. Renderer
     this.webglParts.renderer = new Renderer();
@@ -69,6 +72,22 @@ export default class WebGLManager {
 
     // 6. TimeManager
     this.timeManager = new TimeManager();
+
+    // const user = { name: '홍길동' }
+
+    // const proxyJson = new Proxy<typeof user & {
+    //   getName(): string
+    // }>(user as any, {
+    //   get(target, prop) {
+    //     if (Object.hasOwn(target, prop)) {
+    //       return target[prop]
+    //     } else if(prop === 'getUser') {
+    //       return () => {
+    //         return target.name
+    //       }
+    //     }
+    //   }
+    // })
 
     if (import.meta.env.DEV) {
       window.manager = this;
