@@ -5,6 +5,7 @@ import Viewport from '../../utils/Viewport/Viewport';
 import Camera from '../Camera/Camera';
 import Renderer from '../Renderer/Renderer';
 import MockupWorld from '../MockupWorld/MockupWorld';
+import TimeManager from '../TimeManager/TimeManager';
 
 export default class WebGLManager {
   private static _instance: WebGLManager;
@@ -21,6 +22,7 @@ export default class WebGLManager {
     renderer: Renderer;
   };
 
+  timeManager!: TimeManager;
   world!: MockupWorld;
 
   constructor(params: {
@@ -64,6 +66,9 @@ export default class WebGLManager {
 
     // 5. World
     this.world = new MockupWorld();
+
+    // 6. TimeManager
+    this.timeManager = new TimeManager();
 
     if (import.meta.env.DEV) {
       window.manager = this;
